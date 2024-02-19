@@ -36,7 +36,12 @@ func createFlashGroups(t *testing.T) (groups []proto.FlashGroupAdminView) {
 			slots = "2222222"
 		}
 		fgView, err := mc.AdminAPI().CreateFlashGroup(slots)
-		require.NoError(t, err)
+		if idx != 7 {
+			require.NoError(t, err)
+		} else {
+			require.True(t, err != nil)
+		}
+
 		require.Equal(t, proto.FlashGroupStatus_Inactive, fgView.Status)
 		groups = append(groups, fgView)
 	}
